@@ -1,8 +1,10 @@
+import 'package:chopper_flutter/DetailPage.dart';
 import 'package:chopper_flutter/src/bloc/bloc.dart';
 import 'package:chopper_flutter/src/model/User.dart';
 import 'package:flutter/material.dart';
 import 'package:equinox/equinox.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -32,7 +34,10 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (_, UserState state) {
           if (state is LoadingUserState) {
             return Center(
-              child: EqSpinner(),
+              child: FlareActor(
+                "assets/loading2.flr",
+                alignment: Alignment.center,
+              ),
             );
           }
           if (state is LoadedUserState) {
@@ -55,9 +60,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _builtList(User user) {
     return EqListItem(
-     title: user.name,
+      title: user.name,
       subtitle: user.company.name,
-      onTap: (){},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailPage(id: user.id),
+          ),
+        );
+      },
     );
   }
 

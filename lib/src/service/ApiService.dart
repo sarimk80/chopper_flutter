@@ -10,7 +10,7 @@ abstract class ApiService extends ChopperService {
   @Get()
   Future<Response<BuiltList<User>>> getUser();
 
-  @Get(path: '/{id}')
+  @Get(path: '/users/{id}')
   Future<Response<User>> getSingleUser(@Path('id') int id);
 
   static ApiService create() {
@@ -23,3 +23,5 @@ abstract class ApiService extends ChopperService {
     return _$ApiService(client);
   }
 }
+
+//flutter packages pub run build_runner build
